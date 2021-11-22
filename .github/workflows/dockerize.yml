@@ -36,4 +36,4 @@ jobs:
       with:
         file: ./Dockerfile_with_maven_build
         push: true
-        tags: prporso/image-catalog:${{ steps.time.outputs.time }}
+        tags: mp6079/items:${{ steps.time.outputs.time }}

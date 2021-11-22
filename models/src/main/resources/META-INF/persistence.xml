@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
-    <persistence-unit name="image-catalog-jpa" transaction-type="RESOURCE_LOCAL">
-        <non-jta-data-source>jdbc/ImageMetadataDS</non-jta-data-source>
+    <persistence-unit name="items-jpa" transaction-type="RESOURCE_LOCAL">
+        <non-jta-data-source>jdbc/ItemsDB</non-jta-data-source>
 
-        <class>si.fri.rso.samples.imagecatalog.models.entities.ImageMetadataEntity</class>
-        <class>si.fri.rso.samples.imagecatalog.models.converters.InstantAtributeConverter</class>
+        <class>si.fri.rso.uniborrow.items.models.entities.ItemEntity</class>
+        <!-- <class>si.fri.rso.samples.imagecatalog.models.converters.InstantAtributeConverter</class>-->
 
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>

@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: image-catalog-deployment
+  name: items-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: image-catalog
+      app: items
   template:
     metadata:
       labels:
-        app: image-catalog
+        app: items
     spec:
       containers:
-        - image: prporso/image-catalog:2021-11-02-17-26-12
-          name: image-catalog
+        - image: mp6079/items:2021-11-02-17-26-12
+          name: items
           env:
             - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
               value: jdbc:postgresql://lallah.db.elephantsql.com:5432/kryfltbl
@@ -36,7 +36,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: image-catalog
+  name: items
 spec:
   type: LoadBalancer
   ports:
@@ -44,4 +44,4 @@ spec:
       protocol: TCP
       targetPort: server
   selector:
-    app: image-catalog
+    app: items

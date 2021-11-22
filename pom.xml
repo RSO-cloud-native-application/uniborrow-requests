@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>si.fri.rso.samples</groupId>
-    <artifactId>image-catalog</artifactId>
+    <groupId>si.fri.rso.uniborrow</groupId>
+    <artifactId>items</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
     <packaging>pom</packaging>
@@ -18,8 +18,8 @@
     </modules>
 
     <properties>
-        <maven.compiler.source>15</maven.compiler.source>
-        <maven.compiler.target>15</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <kumuluzee.version>3.12.2</kumuluzee.version>
@@ -58,23 +58,23 @@
             </dependency>
 
             <dependency>
-                <groupId>si.fri.rso.samples</groupId>
-                <artifactId>image-catalog-api</artifactId>
+                <groupId>si.fri.rso.uniborrow</groupId>
+                <artifactId>items-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>si.fri.rso.samples</groupId>
-                <artifactId>image-catalog-models</artifactId>
+                <groupId>si.fri.rso.uniborrow</groupId>
+                <artifactId>items-models</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>si.fri.rso.samples</groupId>
-                <artifactId>image-catalog-services</artifactId>
+                <groupId>si.fri.rso.uniborrow</groupId>
+                <artifactId>items-services</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>si.fri.rso.samples</groupId>
-                <artifactId>image-catalog-lib</artifactId>
+                <groupId>si.fri.rso.uniborrow</groupId>
+                <artifactId>items-lib</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

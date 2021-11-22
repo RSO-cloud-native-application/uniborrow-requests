@@ -1,1 +1,1 @@
-INSERT INTO image_metadata (title, description, width, height, created, uri) VALUES ('Our fist image', 'This is the first image that we created for the RSO course.', 1280, 1325, TIMESTAMP '2006-01-01 15:36:38', 'https://www.nasa.gov/sites/default/files/styles/full_width/public/thumbnails/image/tess_first_light-tb.jpg');
+INSERT INTO items (title, description, userId, score, uri, status, category) VALUES ('War and Peace', 'Novel written by Leo Tolstoy.', 1, 1325, 'https://images-na.ssl-images-amazon.com/images/I/51J1nb00FLL._SX330_BO1,204,203,200_.jpg', 'Available', 'Books');
