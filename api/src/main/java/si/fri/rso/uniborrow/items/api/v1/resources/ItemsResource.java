@@ -18,7 +18,9 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import si.fri.rso.uniborrow.items.lib.Item;
+import si.fri.rso.uniborrow.items.models.entities.ItemEntity;
 import si.fri.rso.uniborrow.items.services.beans.ItemBean;
+import si.fri.rso.uniborrow.items.services.config.RestProperties;
 
 @ApplicationScoped
 @Path("/items")
@@ -31,6 +33,9 @@ public class ItemsResource {
 
     @Inject
     private ItemBean itemBean;
+
+    @Inject
+    private RestProperties rp;
 
     @GET
     public Response getItems() {
@@ -45,6 +50,23 @@ public class ItemsResource {
         if (item == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
+        System.out.println(rp.getMaintenanceMode());
+
+        if (rp.getMaintenanceMode()) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
         return Response.status(Response.Status.OK).entity(item).build();
+    }
+
+    @POST
+    public Response createLoan(ItemEntity loanEntity) {
+        if (loanEntity.getTitle() == null ||
+                loanEntity.getDescription() == null || loanEntity.getUserId() == null
+                || loanEntity.getCategory() == null) {
+            return Response.status(300).build();
+        } else {
+            loanEntity = itemBean.createLoan(loanEntity);
+        }
+        return Response.status(Response.Status.OK).entity(loanEntity).build();
     }
 }

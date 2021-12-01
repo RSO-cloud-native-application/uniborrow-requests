@@ -15,7 +15,7 @@ public class RestProperties {
     private Boolean broken;
 
     public Boolean getMaintenanceMode() {
-        return this.maintenanceMode;
+        return maintenanceMode;
     }
 
     public void setMaintenanceMode(final Boolean maintenanceMode) {

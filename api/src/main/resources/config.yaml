@@ -7,10 +7,25 @@ kumuluzee:
     base-url: http://localhost:8080
     http:
       port: 8080
+  discovery:
+    consul:
+      hosts: http://localhost:8500
+    ttl: 30
+    ping-interval: 5
   datasources:
     - jndi-name: jdbc/ItemsDB
       connection-url: jdbc:postgresql://localhost:5432/items
       username: dbuser
       password: postgres
+  health:
+    checks:
+      data-source-health-check:
+        type: liveness
+        jndi-name: jdbc/ItemsDB
+    metrics:
+      web-instrumentation:
+        - name: items-endpoint
+          url-pattern: /v1/items/*
 rest-properties:
   maintenance-mode: false
+  broken: false

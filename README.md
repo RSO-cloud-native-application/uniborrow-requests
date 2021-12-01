@@ -1,4 +1,4 @@
-# RSO: Image metadata microservice
+# RSO: Items microservice
 
 ## Prerequisites
 

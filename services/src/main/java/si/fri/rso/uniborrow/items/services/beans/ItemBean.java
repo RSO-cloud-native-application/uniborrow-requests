@@ -36,4 +36,38 @@ public class ItemBean {
         Item item = ItemConverter.toDto(itemEntity);
         return item;
     }
+
+    public ItemEntity createLoan(ItemEntity loanEntity) {
+        try {
+            beginTx();
+            em.persist(loanEntity);
+            commitTx();
+        }
+        catch (Exception e) {
+            rollbackTx();
+        }
+
+        if (loanEntity.getId() == null) {
+            throw new RuntimeException("Entity was not persisted");
+        }
+        return loanEntity;
+    }
+
+    private void beginTx() {
+        if (!em.getTransaction().isActive()) {
+            em.getTransaction().begin();
+        }
+    }
+
+    private void commitTx() {
+        if (em.getTransaction().isActive()) {
+            em.getTransaction().commit();
+        }
+    }
+
+    private void rollbackTx() {
+        if (em.getTransaction().isActive()) {
+            em.getTransaction().rollback();
+        }
+    }
 }
