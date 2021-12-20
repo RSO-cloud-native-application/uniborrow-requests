@@ -1,5 +1,5 @@
 kumuluzee:
-  name: items-service
+  name: requests-service
   env:
     name: dev
   version: 1.0.0
@@ -13,19 +13,19 @@ kumuluzee:
     ttl: 30
     ping-interval: 5
   datasources:
-    - jndi-name: jdbc/ItemsDB
-      connection-url: jdbc:postgresql://localhost:5432/items
+    - jndi-name: jdbc/RequestsDB
+      connection-url: jdbc:postgresql://localhost:5432/requests
       username: dbuser
       password: postgres
   health:
     checks:
       data-source-health-check:
         type: liveness
-        jndi-name: jdbc/ItemsDB
+        jndi-name: jdbc/RequestsDB
     metrics:
       web-instrumentation:
-        - name: items-endpoint
-          url-pattern: /v1/items/*
+        - name: requests-endpoint
+          url-pattern: /v1/requests/*
 rest-properties:
   maintenance-mode: false
   broken: false

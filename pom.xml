@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>si.fri.rso.uniborrow</groupId>
-    <artifactId>items</artifactId>
+    <artifactId>requests</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
     <packaging>pom</packaging>
@@ -81,22 +81,22 @@
 
             <dependency>
                 <groupId>si.fri.rso.uniborrow</groupId>
-                <artifactId>items-api</artifactId>
+                <artifactId>requests-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>si.fri.rso.uniborrow</groupId>
-                <artifactId>items-models</artifactId>
+                <artifactId>requests-models</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>si.fri.rso.uniborrow</groupId>
-                <artifactId>items-services</artifactId>
+                <artifactId>requests-services</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>si.fri.rso.uniborrow</groupId>
-                <artifactId>items-lib</artifactId>
+                <artifactId>requests-lib</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

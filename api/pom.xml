@@ -4,12 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>si.fri.rso.uniborrow</groupId>
-        <artifactId>items</artifactId>
+        <artifactId>requests</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>items-api</artifactId>
+    <artifactId>requests-api</artifactId>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -66,12 +66,12 @@
 
         <dependency>
             <groupId>si.fri.rso.uniborrow</groupId>
-            <artifactId>items-lib</artifactId>
+            <artifactId>requests-lib</artifactId>
         </dependency>
 
         <dependency>
             <groupId>si.fri.rso.uniborrow</groupId>
-            <artifactId>items-services</artifactId>
+            <artifactId>requests-services</artifactId>
         </dependency>
     </dependencies>
 

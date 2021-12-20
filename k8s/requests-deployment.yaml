@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: requests-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: requests
+  template:
+    metadata:
+      labels:
+        app: requests
+    spec:
+      containers:
+        - image: mp6079/requests:2021-12-02-00-55-00
+          name: requests
+          env:
+            - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
+              value: jdbc:postgresql://abul.db.elephantsql.com:5432/qmsjftug
+            - name: KUMULUZEE_DATASOURCES0_USERNAME
+              value: qmsjftug
+            - name: KUMULUZEE_DATASOURCES0_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: uniborrow-requests-db-pass
+                  key: password
+            - name: KUMULUZEE_CONFIG_CONSUL_AGENT
+              value: http://consul-consul-server:8500/
+          ports:
+            - containerPort: 8080
+              name: server
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: server
+            initialDelaySeconds: 20
+            periodSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: server
+            initialDelaySeconds: 20
+            periodSeconds: 3
+         
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: requests
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: server
+  selector:
+    app: requests
