@@ -4,9 +4,9 @@ kumuluzee:
     name: dev
   version: 1.0.0
   server:
-    base-url: http://localhost:8080
+    base-url: http://localhost:8081
     http:
-      port: 8080
+      port: 8081
   discovery:
     consul:
       hosts: http://localhost:8500
@@ -14,7 +14,7 @@ kumuluzee:
     ping-interval: 5
   datasources:
     - jndi-name: jdbc/RequestsDB
-      connection-url: jdbc:postgresql://localhost:5432/requests
+      connection-url: jdbc:postgresql://localhost:5431/requests
       username: dbuser
       password: postgres
   health:

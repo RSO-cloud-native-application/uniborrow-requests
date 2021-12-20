@@ -17,7 +17,7 @@ spec:
           name: requests
           env:
             - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
-              value: jdbc:postgresql://abul.db.elephantsql.com:5432/qmsjftug
+              value: jdbc:postgresql://abul.db.elephantsql.com:5431/qmsjftug
             - name: KUMULUZEE_DATASOURCES0_USERNAME
               value: qmsjftug
             - name: KUMULUZEE_DATASOURCES0_PASSWORD
@@ -28,7 +28,7 @@ spec:
             - name: KUMULUZEE_CONFIG_CONSUL_AGENT
               value: http://consul-consul-server:8500/
           ports:
-            - containerPort: 8080
+            - containerPort: 8081
               name: server
               protocol: TCP
           livenessProbe:
@@ -54,7 +54,7 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-    - port: 8080
+    - port: 8081
       protocol: TCP
       targetPort: server
   selector:
