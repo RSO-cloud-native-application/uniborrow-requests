@@ -8,15 +8,20 @@ kumuluzee:
     http:
       port: 8081
   discovery:
-    consul:
-      hosts: http://localhost:8500
+    etcd:
+      hosts: http://localhost:2379
     ttl: 30
     ping-interval: 5
   datasources:
     - jndi-name: jdbc/RequestsDB
-      connection-url: jdbc:postgresql://localhost:5431/requests
+      connection-url: jdbc:postgresql://localhost:5432/requests
       username: dbuser
       password: postgres
+  config:
+    etcd:
+      hosts: http://localhost:2379
+    start-retry-delay-ms: 500
+    max-retry-delay-ms: 900000
   health:
     checks:
       data-source-health-check:

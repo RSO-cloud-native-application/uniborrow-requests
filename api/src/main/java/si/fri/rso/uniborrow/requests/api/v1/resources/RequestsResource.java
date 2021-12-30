@@ -53,9 +53,9 @@ public class RequestsResource {
 
     @POST
     public Response createRequest(Request request) {
-        /*if (request == null || request.getMessage() == null || request.getTimestampStart() == null || request.getTimestampEnd() == null) {
+        if (request == null || request.getMessage() == null || request.getTimestampStart() == null || request.getTimestampEnd() == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
-        }*/
+        }
 
         Request createdRequest = requestBean.createRequest(request);
         if (createdRequest == null) {

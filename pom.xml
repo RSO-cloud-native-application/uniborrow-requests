@@ -68,7 +68,7 @@
             </dependency>
 
             <dependency>
-                <artifactId>kumuluzee-config-consul</artifactId>
+                <artifactId>kumuluzee-config-etcd</artifactId>
                 <groupId>com.kumuluz.ee.config</groupId>
                 <version>${kumuluzee-config.version}</version>
             </dependency>
