@@ -11,7 +11,9 @@ import javax.ws.rs.core.Response;
 public class ItemsService {
     private WebTarget webTarget = ClientBuilder.newClient().target("http://items:8080");
 
-    public boolean checkItemExists(String itemName) {
-        return false;
+    public int checkItemExists(String itemName) {
+        Response response = webTarget.path("v1/items").request(MediaType.APPLICATION_JSON).buildGet().invoke();
+        int item = response.getLength();
+        return item;
     }
 }

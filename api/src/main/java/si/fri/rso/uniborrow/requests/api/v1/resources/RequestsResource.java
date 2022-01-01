@@ -14,6 +14,7 @@ import si.fri.rso.uniborrow.requests.lib.Request;
 import si.fri.rso.uniborrow.requests.models.entities.RequestEntity;
 import si.fri.rso.uniborrow.requests.services.beans.RequestBean;
 import si.fri.rso.uniborrow.requests.services.config.RestProperties;
+import si.fri.rso.uniborrow.requests.services.items.ItemsService;
 
 @ApplicationScoped
 @Path("/requests")
@@ -30,6 +31,9 @@ public class RequestsResource {
     @Inject
     private RestProperties rp;
 
+    @Inject
+    private ItemsService is;
+
     @GET
     public Response getRequest() {
         List<Request> requests = requestBean.getRequests();
@@ -40,15 +44,16 @@ public class RequestsResource {
     @Path("/{requestId}")
     public Response getRequest(@PathParam("requestId") Integer requestId) {
         Request request = requestBean.getRequest(requestId);
+        return Response.status(is.checkItemExists("guitar")).build();
+        /*
         if (request == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        System.out.println(rp.getMaintenanceMode());
 
         if (rp.getMaintenanceMode()) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.status(Response.Status.OK).entity(request).build();
+        return Response.status(Response.Status.OK).entity(request).build();*/
     }
 
     @POST

@@ -13,13 +13,13 @@ spec:
         app: requests
     spec:
       containers:
-        - image: mp6079/requests:2021-12-02-00-55-00
+        - image: mp6079/requests:2021-12-31-07-25-43
           name: requests
           env:
             - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
-              value: jdbc:postgresql://abul.db.elephantsql.com:5432/qmsjftug
+              value: jdbc:postgresql://abul.db.elephantsql.com:5432/ngeocfhk
             - name: KUMULUZEE_DATASOURCES0_USERNAME
-              value: qmsjftug
+              value: ngeocfhk
             - name: KUMULUZEE_DATASOURCES0_PASSWORD
               valueFrom:
                 secretKeyRef:
