@@ -16,14 +16,24 @@ public class ItemsService {
 
     public boolean checkItemExists(String itemName) {
         Client restClient = ClientBuilder.newClient();
-        List<Item> e=restClient
+        List<Item> e = restClient
                 .target("http://35.223.79.242/uniborrow-items/v1/items/?filter=title:EQ:" + itemName)
                 .request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<Item>> () {});
 
+        if(e.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
 
-        //Response response = webTarget.path("v1/items/?filter=title:EQ:Guitar").request(MediaType.APPLICATION_JSON).buildGet().invoke();
-        //List<Item> items = response.get(new GenericType<List<Item>>() {});
+    public boolean checkUserExists(int userId) {
+        Client restClient = ClientBuilder.newClient();
+        List<User> e = restClient
+                .target("http://35.223.79.242/uniborrow-users/v1/users/" + userId)
+                .request(MediaType.APPLICATION_JSON)
+                .get(new GenericType<List<User>> () {});
+
         if(e.isEmpty()) {
             return false;
         }

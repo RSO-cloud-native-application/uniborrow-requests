@@ -67,7 +67,7 @@ public class RequestsResource {
         if (createdRequest == null) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
-        if(is.checkItemExists(createdRequest.getTitle())) {
+        if(is.checkUserExists(request.getUserId())) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
         return Response.status(Response.Status.CREATED).entity(createdRequest).build();

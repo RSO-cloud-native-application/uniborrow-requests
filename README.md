@@ -12,7 +12,7 @@ mvn clean package
 cd api/target
 java -jar requests-api-1.0.0-SNAPSHOT.jar
 ```
-Available at: localhost:8081/v1/requests
+Available at: localhost:8080/v1/requests
 
 ## Docker commands
 ```bash
