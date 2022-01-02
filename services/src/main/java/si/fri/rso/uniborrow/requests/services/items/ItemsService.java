@@ -29,12 +29,12 @@ public class ItemsService {
 
     public boolean checkUserExists(int userId) {
         Client restClient = ClientBuilder.newClient();
-        List<User> e = restClient
+        User u = restClient
                 .target("http://35.223.79.242/uniborrow-users/v1/users/" + userId)
                 .request(MediaType.APPLICATION_JSON)
-                .get(new GenericType<List<User>> () {});
+                .get(User.class);
 
-        if(e.isEmpty()) {
+        if(u == null) {
             return false;
         }
         return true;
