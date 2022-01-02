@@ -64,13 +64,11 @@ public class RequestsResource {
         } else {
             requestEntity = requestBean.createRequest(requestEntity);
         }
-        /*if (createdRequest == null) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-        }*/
-        /*
+
         if(is.checkUserExists(requestEntity.getUserId())) {
             return Response.status(Response.Status.NOT_FOUND).build();
-        }*/
+        }
+
         return Response.status(Response.Status.CREATED).entity(requestEntity).build();
     }
 
