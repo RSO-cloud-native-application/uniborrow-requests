@@ -58,19 +58,19 @@ public class RequestsResource {
     }
 
     @POST
-    public Response createRequest(Request request) {
-        if (request == null || request.getMessage() == null || request.getTitle() == null || request.getTimestampStart() == null || request.getTimestampEnd() == null) {
+    public Response createRequest(RequestEntity requestEntity) {
+        if (requestEntity == null || requestEntity.getMessage() == null || requestEntity.getTitle() == null || requestEntity.getTimestampStart() == null || requestEntity.getTimestampEnd() == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
-        Request createdRequest = requestBean.createRequest(request);
-        if (createdRequest == null) {
+        requestEntity = requestBean.createRequest(requestEntity);
+        /*if (createdRequest == null) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-        }
-        if(is.checkUserExists(request.getUserId())) {
+        }*/
+        if(is.checkUserExists(requestEntity.getUserId())) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.status(Response.Status.CREATED).entity(createdRequest).build();
+        return Response.status(Response.Status.CREATED).entity(requestEntity).build();
     }
 
     @PUT

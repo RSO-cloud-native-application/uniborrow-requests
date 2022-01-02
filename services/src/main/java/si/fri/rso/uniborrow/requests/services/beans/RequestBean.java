@@ -49,8 +49,7 @@ public class RequestBean {
         return request;
     }
 
-    public Request createRequest(Request request) {
-        RequestEntity requestEntity = RequestConverter.toEntity(request);
+    public RequestEntity createRequest(RequestEntity requestEntity) {
         try {
             beginTransaction();
             em.persist(requestEntity);
@@ -64,7 +63,7 @@ public class RequestBean {
             log.warning("Failed to create a request!");
             return null;
         }
-        return RequestConverter.toDto(requestEntity);
+        return requestEntity;
     }
 
     public Request putRequest(Request request, Integer id) {
