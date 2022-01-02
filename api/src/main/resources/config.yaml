@@ -9,7 +9,7 @@ kumuluzee:
       port: 8081
   discovery:
     etcd:
-      hosts: http://localhost:2379
+      hosts: http://localhost:8500
     ttl: 30
     ping-interval: 5
   datasources:
@@ -19,7 +19,7 @@ kumuluzee:
       password: postgres
   config:
     etcd:
-      hosts: http://localhost:2379
+      hosts: http://localhost:8500
     start-retry-delay-ms: 500
     max-retry-delay-ms: 900000
   health:

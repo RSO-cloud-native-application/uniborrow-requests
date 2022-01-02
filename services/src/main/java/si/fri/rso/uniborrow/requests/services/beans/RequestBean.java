@@ -1,5 +1,8 @@
 package si.fri.rso.uniborrow.requests.services.beans;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.rest.utils.JPAUtils;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 import si.fri.rso.uniborrow.requests.lib.Request;
 import si.fri.rso.uniborrow.requests.models.converters.RequestConverter;
 import si.fri.rso.uniborrow.requests.models.entities.RequestEntity;
@@ -9,6 +12,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.core.UriInfo;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -26,6 +30,14 @@ public class RequestBean {
                 em.createNamedQuery("RequestEntity.getAll", RequestEntity.class);
         List<RequestEntity> resultList = query.getResultList();
         return resultList.stream().map(RequestConverter::toDto).collect(Collectors.toList());
+    }
+
+    @Timed
+    public List<RequestEntity> getRequestsFilter(UriInfo uriInfo) {
+        QueryParameters queryParameters = QueryParameters.query(uriInfo.getRequestUri().getQuery()).defaultOffset(0)
+                .build();
+
+        return JPAUtils.queryEntities(em, RequestEntity.class, queryParameters);
     }
 
     public Request getRequest(Integer id) {
@@ -84,6 +96,9 @@ public class RequestBean {
         RequestEntity updatedRequestEntity = RequestConverter.toEntity(request);
         try {
             beginTransaction();
+            if (updatedRequestEntity.getTitle() == null) {
+                updatedRequestEntity.setTitle(requestEntity.getTitle());
+            }
             if (updatedRequestEntity.getMessage() == null) {
                 updatedRequestEntity.setMessage(requestEntity.getMessage());
             }

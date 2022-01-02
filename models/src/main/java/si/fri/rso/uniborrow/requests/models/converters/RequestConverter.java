@@ -8,6 +8,7 @@ public class RequestConverter {
     public static Request toDto(RequestEntity entity) {
 
         Request dto = new Request();
+        dto.setTitle(entity.getTitle());
         dto.setTimestampStart(entity.getTimestampStart());
         dto.setTimestampEnd(entity.getTimestampEnd());
         dto.setMessage(entity.getMessage());
@@ -22,6 +23,7 @@ public class RequestConverter {
 
         RequestEntity entity = new RequestEntity();
         entity.setMessage(dto.getMessage());
+        entity.setTitle(dto.getTitle());
         entity.setTimestampStart(dto.getTimestampStart());
         entity.setTimestampEnd(dto.getTimestampEnd());
         entity.setUserId(dto.getUserId());

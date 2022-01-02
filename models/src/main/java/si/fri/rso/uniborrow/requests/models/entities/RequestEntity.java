@@ -16,6 +16,9 @@ public class RequestEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "title")
+    private String title;
+
     @Column(name = "message")
     private String message;
 
@@ -45,6 +48,14 @@ public class RequestEntity {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Integer getUserId() {

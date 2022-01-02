@@ -8,6 +8,7 @@ public class Request {
 
     private Integer requestId;
     private Integer userId;
+    private String title;
     private String message;
     private Float price;
     private Instant timestampStart;
@@ -27,6 +28,14 @@ public class Request {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Float getPrice() {
