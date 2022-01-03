@@ -31,7 +31,6 @@ public class ItemsService {
                 .request(MediaType.APPLICATION_JSON).buildGet().invoke();
 
         if (r.getStatus() == 404) {
-            System.out.println("ok2");
             return false;
         }
         return true;
