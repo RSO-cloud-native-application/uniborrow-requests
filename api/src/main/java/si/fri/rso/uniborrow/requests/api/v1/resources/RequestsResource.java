@@ -7,6 +7,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -44,6 +46,19 @@ public class RequestsResource {
     }
 
     @GET
+    @Path("/active")
+    public Response getActiveRequest() {
+        List<RequestEntity> requests = requestBean.getRequestsFilter(uriInfo);
+        List<RequestEntity> validRequests = new ArrayList<RequestEntity>();
+        for (RequestEntity request : requests) {
+            if(request.getTimestampEnd().isAfter(Instant.now())) {
+                validRequests.add(request);
+            }
+        }
+        return Response.status(200).entity(validRequests).build();
+    }
+
+    @GET
     @Path("/{requestId}")
     public Response getRequest(@PathParam("requestId") Integer requestId) {
         Request request = requestBean.getRequest(requestId);
@@ -59,7 +74,10 @@ public class RequestsResource {
 
     @POST
     public Response createRequest(RequestEntity requestEntity) {
-        if (requestEntity == null || requestEntity.getMessage() == null || requestEntity.getTitle() == null || requestEntity.getTimestampStart() == null || requestEntity.getTimestampEnd() == null) {
+        if (requestEntity == null || requestEntity.getMessage() == null
+                || requestEntity.getTitle() == null || requestEntity.getTimestampStart() == null
+                || requestEntity.getTimestampEnd() == null
+                || requestEntity.getTimestampStart().isAfter(requestEntity.getTimestampEnd())) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         } else {
             requestEntity = requestBean.createRequest(requestEntity);

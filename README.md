@@ -38,13 +38,6 @@ docker inspect pg-requests
 docker run -p 8081:8081 --network rso -e KUMULUZEE_DATASOURCES0_CONNECTIONURL=jdbc:postgresql://pg-requests:5432/requests rso-dn
 ```
 
-## Consul
-```bash
-consul agent -dev
-```
-Available at: localhost:8500
-
-
 ## Kubernetes
 ```bash
 kubectl version
