@@ -1,10 +1,7 @@
 package si.fri.rso.uniborrow.requests.services.items;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.client.*;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -29,12 +26,12 @@ public class ItemsService {
 
     public boolean checkUserExists(int userId) {
         Client restClient = ClientBuilder.newClient();
-        User u = restClient
+        Response r = restClient
                 .target("http://35.223.79.242/uniborrow-users/v1/users/" + userId)
-                .request(MediaType.APPLICATION_JSON)
-                .get(User.class);
+                .request(MediaType.APPLICATION_JSON).buildGet().invoke();
 
-        if(u == null) {
+        if (r.getStatus() == 404) {
+            System.out.println("ok2");
             return false;
         }
         return true;

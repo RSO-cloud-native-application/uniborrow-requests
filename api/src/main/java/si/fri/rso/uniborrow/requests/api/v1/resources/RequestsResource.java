@@ -65,7 +65,9 @@ public class RequestsResource {
             requestEntity = requestBean.createRequest(requestEntity);
         }
 
-        if(is.checkUserExists(requestEntity.getUserId())) {
+        System.out.println(requestEntity.getUserId());
+
+        if(!is.checkUserExists(requestEntity.getUserId())) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
