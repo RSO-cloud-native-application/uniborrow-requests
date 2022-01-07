@@ -13,7 +13,7 @@ spec:
         app: requests
     spec:
       containers:
-        - image: mp6079/requests:2022-01-04-00-32-42
+        - image: mp6079/requests:2022-01-04-01-03-34
           name: requests
           env:
             - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
