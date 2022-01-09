@@ -8,10 +8,16 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletionStage;
 import java.util.logging.Logger;
+import com.kumuluz.ee.logs.cdi.Log;
 
+import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
+import org.eclipse.microprofile.faulttolerance.Fallback;
+import org.eclipse.microprofile.faulttolerance.Timeout;
 import si.fri.rso.uniborrow.requests.lib.Request;
 import si.fri.rso.uniborrow.requests.models.entities.RequestEntity;
 import si.fri.rso.uniborrow.requests.services.beans.RequestBean;
@@ -19,6 +25,7 @@ import si.fri.rso.uniborrow.requests.services.config.RestProperties;
 import si.fri.rso.uniborrow.requests.services.items.ItemsService;
 
 @ApplicationScoped
+@Log
 @Path("/requests")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -58,6 +65,7 @@ public class RequestsResource {
         return Response.status(200).entity(validRequests).build();
     }
 
+
     @GET
     @Path("/{requestId}")
     public Response getRequest(@PathParam("requestId") Integer requestId) {
@@ -68,6 +76,10 @@ public class RequestsResource {
         if (rp.getMaintenanceMode()) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
+
+        var a = is.checkUserExists(2);
+
+        System.out.println(a);
 
         return Response.status(Response.Status.OK).entity(request).build();
     }
