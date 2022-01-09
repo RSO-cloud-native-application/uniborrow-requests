@@ -31,6 +31,17 @@ kumuluzee:
       web-instrumentation:
         - name: requests-endpoint
           url-pattern: /v1/requests/*
+  openapi-mp:
+    enabled: true
+    servlet:
+      mapping: /uniborrow-requests/openapi
+    ui:
+      enabled: true
+      mapping: /uniborrow-requests/openapi/ui
+      specification-server: http://35.223.79.242
+    dev:
+      scan-libraries:
+        - requests-models
   logs:
     config-file: '<?xml version="1.0" encoding="UTF-8"?>
                             <Configuration name="comments">

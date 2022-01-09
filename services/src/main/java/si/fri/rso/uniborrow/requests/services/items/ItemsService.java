@@ -13,6 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.List;
 
+import com.kumuluz.ee.discovery.annotations.DiscoverService;
 import com.kumuluz.ee.logs.LogCommons;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
@@ -41,27 +42,14 @@ public class ItemsService {
     @Timeout(value = 2, unit = ChronoUnit.SECONDS)
     @CircuitBreaker(requestVolumeThreshold = 3)
     @Fallback(fallbackMethod = "checkItemExistsFallback")
+    @DiscoverService(value = "uniborrow-items-service", environment = "dev", version = "1.0.0")
     public boolean checkItemExists(int itemId) {
-/*
-        Client restClient = ClientBuilder.newClient();
-        List<Item> e = restClient
-                .target("http://35.223.79.242/uniborrow-items/v1/items/" + itemId)
-                .request(MediaType.APPLICATION_JSON)
-                .get(new GenericType<List<Item>> () {});
-
-        if(e.isEmpty()) {
-            System.out.println(e);
-            return false;
-        }
-        System.out.println(e);
-        return true;
-        */
         try {
-            Response response = webTarget.path("http://35.223.79.242/uniborrow-items/v1/items/2").request(MediaType.APPLICATION_JSON).buildGet().invoke();
+            Response response = webTarget.path("/v1/items/" + itemId).request(MediaType.APPLICATION_JSON).buildGet().invoke();
             Item item = response.readEntity(Item.class);
             item.status = "Requested";
             System.out.println("I'm here now2");
-            response = webTarget.path("http://35.223.79.242/uniborrow-items/v1/items/2").request(MediaType.APPLICATION_JSON).buildPut(Entity.entity(item, MediaType.APPLICATION_JSON)).invoke();
+            response = webTarget.path("/v1/items/2").request(MediaType.APPLICATION_JSON).buildPut(Entity.entity(item, MediaType.APPLICATION_JSON)).invoke();
             return response.getStatus() != 404;
         }
         catch (WebApplicationException | ProcessingException e) {
@@ -82,12 +70,13 @@ public class ItemsService {
     @CircuitBreaker(requestVolumeThreshold = 3)
     @Fallback(fallbackMethod = "checkUserExistsFallback")
     @Retry(maxRetries = 3)
+    @DiscoverService(value = "uniborrow-users-service", environment = "dev", version = "1.0.0")
     public boolean checkUserExists(int userId) {
         LOG.info("Check if user exists.");
         try {
             Client restClient = ClientBuilder.newClient();
             Response r = restClient
-                    .target("http://35.223.79.242/uniborrow-users/v1/users/" + userId)
+                    .target("/v1/users/" + userId)
                     .request(MediaType.APPLICATION_JSON).buildGet().invoke();
 
             System.out.println(r.getStatus());
@@ -107,14 +96,12 @@ public class ItemsService {
         return false;
     }
 
-
-
-
+    @DiscoverService(value = "uniborrow-users-service", environment = "dev", version = "1.0.0")
     public boolean markRequested(Integer itemId) {
-        Response response = webTarget.path("http://35.223.79.242/uniborrow-items/v1/items").path(itemId.toString()).request(MediaType.APPLICATION_JSON).buildGet().invoke();
+        Response response = webTarget.path("/v1/items").path(itemId.toString()).request(MediaType.APPLICATION_JSON).buildGet().invoke();
         Item item = response.readEntity(Item.class);
         item.status = "Requested";
-        response = webTarget.path("http://35.223.79.242/uniborrow-items/v1/items").path(itemId.toString()).request(MediaType.APPLICATION_JSON).buildPut(Entity.entity(item, MediaType.APPLICATION_JSON)).invoke();
+        response = webTarget.path("/v1/items").path(itemId.toString()).request(MediaType.APPLICATION_JSON).buildPut(Entity.entity(item, MediaType.APPLICATION_JSON)).invoke();
         return response.getStatus() != 404;
     }
 
