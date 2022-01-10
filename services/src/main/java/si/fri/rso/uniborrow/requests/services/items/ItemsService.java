@@ -37,35 +37,6 @@ import java.util.logging.Logger;
 public class ItemsService {
     private static final Logger LOG = Logger.getLogger(RequestBean.class
             .getSimpleName());
-    private WebTarget webTarget = ClientBuilder.newClient().target("http://35.223.79.242/uniborrow-items");
-
-
-    @Timeout(value = 2, unit = ChronoUnit.SECONDS)
-    @CircuitBreaker(requestVolumeThreshold = 3)
-    @Fallback(fallbackMethod = "checkItemExistsFallback")
-    @DiscoverService(value = "uniborrow-items-service", environment = "dev", version = "1.0.0")
-    public boolean checkItemExists(int itemId) {
-        try {
-            Response response = webTarget.path("/v1/items/" + itemId).request(MediaType.APPLICATION_JSON).buildGet().invoke();
-            Item item = response.readEntity(Item.class);
-            item.status = "Requested";
-            System.out.println("I'm here now2");
-            response = webTarget.path("/v1/items/2").request(MediaType.APPLICATION_JSON).buildPut(Entity.entity(item, MediaType.APPLICATION_JSON)).invoke();
-            return response.getStatus() != 404;
-        }
-        catch (WebApplicationException | ProcessingException e) {
-                //log.severe(e.getMessage());
-                throw new InternalServerErrorException(e);
-        }
-
-    }
-
-    public boolean checkItemExistsFallback(int itemId) {
-        System.out.println("I'm here now");
-        return false;
-    }
-
-
 
     @Timeout(value = 2, unit = ChronoUnit.SECONDS)
     @CircuitBreaker(requestVolumeThreshold = 3)
@@ -95,15 +66,6 @@ public class ItemsService {
     public boolean checkUserExistsFallback(int userId) {
         LOG.info("checkUserExistsFallback");
         return false;
-    }
-
-    @DiscoverService(value = "uniborrow-users-service", environment = "dev", version = "1.0.0")
-    public boolean markRequested(Integer itemId) {
-        Response response = webTarget.path("/v1/items").path(itemId.toString()).request(MediaType.APPLICATION_JSON).buildGet().invoke();
-        Item item = response.readEntity(Item.class);
-        item.status = "Requested";
-        response = webTarget.path("/v1/items").path(itemId.toString()).request(MediaType.APPLICATION_JSON).buildPut(Entity.entity(item, MediaType.APPLICATION_JSON)).invoke();
-        return response.getStatus() != 404;
     }
 
 }

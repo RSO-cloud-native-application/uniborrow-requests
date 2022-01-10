@@ -42,6 +42,11 @@
         </dependency>
 
         <dependency>
+            <groupId>com.kumuluz.ee.metrics</groupId>
+            <artifactId>kumuluzee-metrics-core</artifactId>
+        </dependency>
+
+        <dependency>
             <artifactId>kumuluzee-logs-log4j2</artifactId>
             <groupId>com.kumuluz.ee.logs</groupId>
         </dependency>
@@ -97,6 +102,11 @@
         <dependency>
             <groupId>si.fri.rso.uniborrow</groupId>
             <artifactId>requests-services</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.microprofile.metrics</groupId>
+            <artifactId>microprofile-metrics-api</artifactId>
+            <version>2.3</version>
         </dependency>
     </dependencies>
 

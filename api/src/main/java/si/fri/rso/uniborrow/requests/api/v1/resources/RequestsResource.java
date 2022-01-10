@@ -15,9 +15,6 @@ import java.util.concurrent.CompletionStage;
 import java.util.logging.Logger;
 import com.kumuluz.ee.logs.cdi.Log;
 
-import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
-import org.eclipse.microprofile.faulttolerance.Fallback;
-import org.eclipse.microprofile.faulttolerance.Timeout;
 import si.fri.rso.uniborrow.requests.lib.Request;
 import si.fri.rso.uniborrow.requests.models.entities.RequestEntity;
 import si.fri.rso.uniborrow.requests.services.beans.RequestBean;
@@ -27,10 +24,11 @@ import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
-import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
-import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
+import org.eclipse.microprofile.metrics.annotation.Counted;
+import org.eclipse.microprofile.metrics.annotation.Timed;
+import org.eclipse.microprofile.metrics.annotation.Metered;
 
 @ApplicationScoped
 @Log
@@ -55,6 +53,7 @@ public class RequestsResource {
     protected UriInfo uriInfo;
 
     @GET
+    @Metered(name = "get_requests_rate")
     @Operation(description = "Get requests by filter, or all.", summary = "Get requests by filter, or all.")
     @APIResponses({
             @APIResponse(
@@ -74,6 +73,7 @@ public class RequestsResource {
 
     @GET
     @Path("/active")
+    @Metered(name = "get_requests_active_rate")
     @Operation(description = "Get active requests.", summary = "Get active requests.")
     @APIResponses({
             @APIResponse(
@@ -129,6 +129,7 @@ public class RequestsResource {
     }
 
     @POST
+    @Timed(name = "get_requests_created_time")
     @Operation(description = "Create new request.", summary = "Create new request.")
     @APIResponses({
             @APIResponse(
@@ -207,6 +208,7 @@ public class RequestsResource {
 
     @DELETE
     @Path("{requestId}")
+    @Timed(name = "get_requests_deleted_time")
     @Operation(description = "Delete a request.", summary = "Delete a request.")
     @APIResponses({
             @APIResponse(
