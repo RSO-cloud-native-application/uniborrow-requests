@@ -15,7 +15,6 @@ import java.util.List;
 
 import com.kumuluz.ee.discovery.annotations.DiscoverService;
 import com.kumuluz.ee.logs.LogCommons;
-import org.apache.logging.log4j.Logger;
 import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
 import org.eclipse.microprofile.faulttolerance.Fallback;
 import org.eclipse.microprofile.faulttolerance.Retry;
@@ -30,11 +29,13 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.GenericType;
 import java.util.logging.LogManager;
 import javax.ws.rs.InternalServerErrorException;
-import org.apache.logging.log4j.core.LoggerContext;
+
+import java.util.logging.Logger;
+
 
 @ApplicationScoped
 public class ItemsService {
-    private static final Logger LOG = org.apache.logging.log4j.LogManager.getLogger(RequestBean.class
+    private static final Logger LOG = Logger.getLogger(RequestBean.class
             .getSimpleName());
     private WebTarget webTarget = ClientBuilder.newClient().target("http://35.223.79.242/uniborrow-items");
 
@@ -86,7 +87,7 @@ public class ItemsService {
             return true;
         }
         catch (Exception e) {
-            LOG.error("Users unavailable");
+            LOG.severe("Users unavailable");
             throw new InternalServerErrorException(e);
         }
     }
