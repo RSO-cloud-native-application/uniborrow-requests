@@ -13,7 +13,7 @@ spec:
         app: uniborrow-requests
     spec:
       containers:
-        - image: mp6079/requests:2022-01-11-03-57-54
+        - image: mp6079/requests:2022-01-10-03-47-56
           name: requests
           env:
             - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
@@ -43,13 +43,13 @@ spec:
             httpGet:
               path: /health/live
               port: server
-            initialDelaySeconds: 20
+            initialDelaySeconds: 60
             periodSeconds: 3
           readinessProbe:
             httpGet:
               path: /health/ready
               port: server
-            initialDelaySeconds: 20
+            initialDelaySeconds: 60
             periodSeconds: 3
          
 
