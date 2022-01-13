@@ -52,7 +52,7 @@ public class ItemsService {
                     .request(MediaType.APPLICATION_JSON).buildGet().invoke();
 
             System.out.println(r.getStatus());
-            if (r.getStatus() > 400) {
+            if (r.getStatus() >= 400) {
                 throw new WebApplicationException();
             }
             return true;
