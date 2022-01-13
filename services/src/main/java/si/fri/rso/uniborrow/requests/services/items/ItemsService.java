@@ -51,7 +51,6 @@ public class ItemsService {
                     .target("/v1/users/" + userId)
                     .request(MediaType.APPLICATION_JSON).buildGet().invoke();
 
-            System.out.println(r.getStatus());
             if (r.getStatus() >= 400) {
                 throw new WebApplicationException();
             }
