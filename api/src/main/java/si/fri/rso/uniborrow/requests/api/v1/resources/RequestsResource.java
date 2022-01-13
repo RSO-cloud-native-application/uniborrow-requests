@@ -146,16 +146,11 @@ public class RequestsResource {
         if (requestEntity == null || requestEntity.getMessage() == null
                 || requestEntity.getTitle() == null || requestEntity.getTimestampStart() == null
                 || requestEntity.getTimestampEnd() == null
-                || requestEntity.getTimestampStart().isAfter(requestEntity.getTimestampEnd())) {
+                || requestEntity.getTimestampStart().isAfter(requestEntity.getTimestampEnd())
+                || !is.checkUserExists(requestEntity.getUserId())) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         } else {
             requestEntity = requestBean.createRequest(requestEntity);
-        }
-
-        System.out.println(requestEntity.getUserId());
-
-        if(!is.checkUserExists(requestEntity.getUserId())) {
-            return Response.status(Response.Status.NOT_FOUND).build();
         }
 
         return Response.status(Response.Status.CREATED).entity(requestEntity).build();
